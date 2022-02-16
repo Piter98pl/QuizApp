@@ -6,7 +6,24 @@ void main() {
   runApp(MyFirstApp());
 }
 
-class MyFirstApp extends StatelessWidget {
+class MyFirstApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    //return state object which is connected to a stateful widget
+    // TODO: implement createState
+    return MyFirstAppState();
+  }
+}
+
+class MyFirstAppState extends State<MyFirstApp> {
+  var questionIndex = 0;
+  void answerQuestion() {
+    setState(() {
+      questionIndex = questionIndex + 1;
+    });
+    print(questionIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     //BuildContext is a special object type provided by Flutter in the material.dart file and context object is of that type
@@ -25,18 +42,23 @@ class MyFirstApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text('Pytanie!'),
+            Text(
+              questions[questionIndex],
+            ),
             RaisedButton(
               child: Text('Odpowiedź 1'),
-              onPressed: null,
+              onPressed: answerQuestion,
             ),
             RaisedButton(
               child: Text('Odpowiedź 2'),
-              onPressed: null,
+              onPressed: () => print('Odpowiedź 2 została wybrana!'),
             ),
             RaisedButton(
               child: Text('Odpowiedź 3'),
-              onPressed: null,
+              onPressed: () {
+                // some stuff
+                print('Wybrałeś 3 odpowiedź');
+              },
             ),
           ],
         ),
