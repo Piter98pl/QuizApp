@@ -26,7 +26,6 @@ class MyFirstAppState extends State<MyFirstApp> {
 
   @override
   Widget build(BuildContext context) {
-    //BuildContext is a special object type provided by Flutter in the material.dart file and context object is of that type
     //build is also a function/method that needs to RETURN A WIDGET because you work with the widgets in Flutter, the build function is what Dart and Flutter will call in the end when they try to draw something onto the screen
     //just like BuildContext, Widget is in the end a class and every class automatically then also is a type, which is provided by material.dart
     var questions = [
@@ -36,6 +35,7 @@ class MyFirstAppState extends State<MyFirstApp> {
     ];
     return MaterialApp(
       home: Scaffold(
+        //home: Text("Hello") - home is a named argument, and as a value to this argument i pass Text which is widget and to this widget i pass so-called positonal argument of "Hello"
         //we need to return widget inside MyFirstApp and there is a special widget which we should return and that is the MaterialApp widget provided by material.dart, it turn your combination of widgets into a real app that can be rendered
         appBar: AppBar(
           title: Text('Moja pierwsza aplikacja'),
