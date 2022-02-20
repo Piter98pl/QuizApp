@@ -51,7 +51,8 @@ class MyFirstAppState extends State<MyFirstApp> {
             ),
             RaisedButton(
               child: Text('Odpowiedź 2'),
-              onPressed: () => print('Odpowiedź 2 została wybrana!'),
+              onPressed: () => print(
+                  'Odpowiedź 2 została wybrana!'), //anonymous function doesn't has a name, it just has argument list and then function body
             ),
             RaisedButton(
               child: Text('Odpowiedź 3'),
