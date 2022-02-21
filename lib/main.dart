@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart'; // it has built-in widgets also has a base class which allows us to create our own widgets
 
+import './question.dart'; //   ./  means look in the same folder as main.dart file
+
 void main() {
   //main is the function which is automatically executed when the app start in Flutter
   //void main() => runApp(MyApp()); shorthand for functions which only have one and exactly one expression so only one line of code
@@ -11,17 +13,19 @@ class MyFirstApp extends StatefulWidget {
   State<StatefulWidget> createState() {
     //return state object which is connected to a stateful widget
     // TODO: implement createState
-    return MyFirstAppState();
+    return _MyFirstAppState();
   }
 }
 
-class MyFirstAppState extends State<MyFirstApp> {
-  var questionIndex = 0;
-  void answerQuestion() {
+class _MyFirstAppState extends State<MyFirstApp> {
+  var _questionIndex = 0;
+
+  void _answerQuestion() {
     setState(() {
-      questionIndex = questionIndex + 1;
+      // setState is a function that forces Flutter to re-render the user interface, however not the retire user interface of the entire app
+      _questionIndex = _questionIndex + 1;
     });
-    print(questionIndex);
+    print(_questionIndex);
   }
 
   @override
@@ -33,6 +37,7 @@ class MyFirstAppState extends State<MyFirstApp> {
       'Jak nazywa sie twój pies?',
       'Jak masz na imię?'
     ];
+
     return MaterialApp(
       home: Scaffold(
         //home: Text("Hello") - home is a named argument, and as a value to this argument i pass Text which is widget and to this widget i pass so-called positonal argument of "Hello"
@@ -42,12 +47,12 @@ class MyFirstAppState extends State<MyFirstApp> {
         ),
         body: Column(
           children: [
-            Text(
-              questions[questionIndex],
+            Question(
+              questions[_questionIndex],
             ),
             RaisedButton(
               child: Text('Odpowiedź 1'),
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
             ),
             RaisedButton(
               child: Text('Odpowiedź 2'),
