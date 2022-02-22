@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'; // it has built-in widgets also has a base class which allows us to create our own widgets
 
 import './question.dart'; //   ./  means look in the same folder as main.dart file
+import './answer.dart';
 
 void main() {
   //main is the function which is automatically executed when the app start in Flutter
@@ -50,22 +51,9 @@ class _MyFirstAppState extends State<MyFirstApp> {
             Question(
               questions[_questionIndex],
             ),
-            RaisedButton(
-              child: Text('Odpowiedź 1'),
-              onPressed: _answerQuestion,
-            ),
-            RaisedButton(
-              child: Text('Odpowiedź 2'),
-              onPressed: () => print(
-                  'Odpowiedź 2 została wybrana!'), //anonymous function doesn't has a name, it just has argument list and then function body
-            ),
-            RaisedButton(
-              child: Text('Odpowiedź 3'),
-              onPressed: () {
-                // some stuff
-                print('Wybrałeś 3 odpowiedź');
-              },
-            ),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
           ],
         ),
       ),
