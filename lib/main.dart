@@ -19,25 +19,53 @@ class MyFirstApp extends StatefulWidget {
 }
 
 class _MyFirstAppState extends State<MyFirstApp> {
+  final questions = const [
+    //list that hold maps
+    {
+      'questionText': 'Jaki jest\' twój ulubiony kolor?',
+      'answers': ['Niebieski', 'Czerwony', 'Zielony', 'Żółty'],
+    },
+    {
+      'questionText': 'Jakie jest twoje ulubione zwierzę?',
+      'answers': ['Pies', 'Kot', 'Chomik', 'Papuga'],
+    },
+    {
+      'questionText': 'Jaki jest twój ulubiony sport?',
+      'answers': ['Piłka nożna', 'Siatkówka', 'Koszykówka', 'Tenis'],
+    },
+    {
+      'questionText': 'Jaki jest twój ulubiony gautnek muzyki?',
+      'answers': ['Pop', 'Rock', 'Jazz', 'Rap'],
+    },
+    {
+      'questionText': 'Co lubisz robić w wolnym czasie?',
+      'answers': [
+        'Czytam książki',
+        'Słucham muzyki',
+        'Uprawiam sport',
+        'Uczę się programować',
+        'Gram na instrumencie'
+      ],
+    },
+  ];
   var _questionIndex = 0;
 
   void _answerQuestion() {
+    
     setState(() {
       // setState is a function that forces Flutter to re-render the user interface, however not the retire user interface of the entire app
       _questionIndex = _questionIndex + 1;
     });
     print(_questionIndex);
+    if (_questionIndex < questions.length) {
+      print('Mamy więcej pytań')
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     //build is also a function/method that needs to RETURN A WIDGET because you work with the widgets in Flutter, the build function is what Dart and Flutter will call in the end when they try to draw something onto the screen
     //just like BuildContext, Widget is in the end a class and every class automatically then also is a type, which is provided by material.dart
-    var questions = [
-      'Jaki jest\' twój ulubiony kolor?',
-      'Jak nazywa sie twój pies?',
-      'Jak masz na imię?'
-    ];
 
     return MaterialApp(
       home: Scaffold(
@@ -49,11 +77,12 @@ class _MyFirstAppState extends State<MyFirstApp> {
         body: Column(
           children: [
             Question(
-              questions[_questionIndex],
+              questions[_questionIndex]['questionText'],
             ),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
+            ...(questions[_questionIndex]['answers'] as List<String>)
+                .map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList()
           ],
         ),
       ),
