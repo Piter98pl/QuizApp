@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart'; // it has built-in widgets also has a base class which allows us to create our own widgets
 
-import './question.dart'; //   ./  means look in the same folder as main.dart file
-import './answer.dart';
+import './quiz.dart'; //   ./  means look in the same folder as main.dart file
 
 void main() {
   //main is the function which is automatically executed when the app start in Flutter
@@ -19,7 +18,7 @@ class MyFirstApp extends StatefulWidget {
 }
 
 class _MyFirstAppState extends State<MyFirstApp> {
-  final questions = const [
+  final _questions = const [
     //list that hold maps
     {
       'questionText': 'Jaki jest\' twój ulubiony kolor?',
@@ -51,14 +50,15 @@ class _MyFirstAppState extends State<MyFirstApp> {
   var _questionIndex = 0;
 
   void _answerQuestion() {
-    
     setState(() {
       // setState is a function that forces Flutter to re-render the user interface, however not the retire user interface of the entire app
       _questionIndex = _questionIndex + 1;
     });
     print(_questionIndex);
-    if (_questionIndex < questions.length) {
-      print('Mamy więcej pytań')
+    if (_questionIndex < _questions.length) {
+      print('Mamy więcej pytań');
+    } else {
+      print("Nie ma więcej pytań");
     }
   }
 
@@ -74,17 +74,13 @@ class _MyFirstAppState extends State<MyFirstApp> {
         appBar: AppBar(
           title: Text('Moja pierwsza aplikacja'),
         ),
-        body: Column(
-          children: [
-            Question(
-              questions[_questionIndex]['questionText'],
-            ),
-            ...(questions[_questionIndex]['answers'] as List<String>)
-                .map((answer) {
-              return Answer(_answerQuestion, answer);
-            }).toList()
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(_answerQuestion, _questions)
+            : Center(
+                child: Text(
+                'Ukończyłeś quiz!',
+                style: TextStyle(fontSize: 32),
+              )),
       ),
     );
   } //MaterialApp is a widget that does some base setup to turn your combination of widgets into a real app that can be rendered
