@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'; // it has built-in widgets also has a base class which allows us to create our own widgets
 
 import './quiz.dart'; //   ./  means look in the same folder as main.dart file
+import './result.dart';
 
 void main() {
   //main is the function which is automatically executed when the app start in Flutter
@@ -21,35 +22,78 @@ class _MyFirstAppState extends State<MyFirstApp> {
   final _questions = const [
     //list that hold maps
     {
-      'questionText': 'Jaki jest\' twój ulubiony kolor?',
-      'answers': ['Niebieski', 'Czerwony', 'Zielony', 'Żółty'],
-    },
-    {
-      'questionText': 'Jakie jest twoje ulubione zwierzę?',
-      'answers': ['Pies', 'Kot', 'Chomik', 'Papuga'],
-    },
-    {
-      'questionText': 'Jaki jest twój ulubiony sport?',
-      'answers': ['Piłka nożna', 'Siatkówka', 'Koszykówka', 'Tenis'],
-    },
-    {
-      'questionText': 'Jaki jest twój ulubiony gautnek muzyki?',
-      'answers': ['Pop', 'Rock', 'Jazz', 'Rap'],
-    },
-    {
-      'questionText': 'Co lubisz robić w wolnym czasie?',
+      'questionText':
+          'W którym roku Titanic zatonął na Oceanie Atlantyckim 15 kwietnia podczas dziewiczej podróży z Southampton?',
       'answers': [
-        'Czytam książki',
-        'Słucham muzyki',
-        'Uprawiam sport',
-        'Uczę się programować',
-        'Gram na instrumencie'
+        {'text': '1912', 'score': 1},
+        {'text': '1898', 'score': 0},
+        {'text': '1967', 'score': 0},
+        {'text': '1985', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'Jaka jest stolica Portugalii?',
+      'answers': [
+        {'text': 'Braga', 'score': 0},
+        {'text': 'Lizbona', 'score': 1},
+        {'text': 'Porto', 'score': 0},
+        {'text': 'Aveiro', 'score': 0},
+      ],
+    },
+    {
+      'questionText': ' Ilu graczy jest w olimpijskiej drużynie do curlingu?',
+      'answers': [
+        {'text': '4', 'score': 1},
+        {'text': '3', 'score': 0},
+        {'text': '5', 'score': 0},
+      ],
+    },
+    {
+      'questionText': 'Jaki jest najmniejszy ptak na świecie?',
+      'answers': [
+        {'text': 'Kanarek', 'score': 0},
+        {'text': 'Skowronek azjatycki', 'score': 0},
+        {'text': 'Wróbelek szlachecki', 'score': 0},
+        {'text': 'Koliber pszczół', 'score': 1},
+      ],
+    },
+    {
+      'questionText': 'Jaka jest żywotność ważki?',
+      'answers': [
+        {'text': '12 godzin', 'score': 0},
+        {'text': '25 dni', 'score': 0},
+        {'text': '24 godziny', 'score': 1},
+        {'text': '7 dni', 'score': 0},
+        {'text': '10 dni', 'score': 0},
+      ],
+    },
+    {
+      'questionText':
+          'W którym roku został opracowany produkt WD40 przez chemika Norma Larsena?',
+      'answers': [
+        {'text': '1953', 'score': 1},
+        {'text': '1985', 'score': 0},
+        {'text': '1989', 'score': 0},
+        {'text': '1999', 'score': 0},
+      ],
+    },
+    {
+      'questionText':
+          'Gdybyś mógł przetworzyć miliard atomów na sekundę, ile lat zajęłaby teleportacja typowego człowieka?',
+      'answers': [
+        {'text': '2 miliony lat', 'score': 0},
+        {'text': '200 miliardów lat', 'score': 1},
+        {'text': '10 lat', 'score': 0},
+        {'text': 'miliard lat', 'score': 0},
       ],
     },
   ];
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore = _totalScore + score;
+
     setState(() {
       // setState is a function that forces Flutter to re-render the user interface, however not the retire user interface of the entire app
       _questionIndex = _questionIndex + 1;
@@ -75,12 +119,12 @@ class _MyFirstAppState extends State<MyFirstApp> {
           title: Text('Moja pierwsza aplikacja'),
         ),
         body: _questionIndex < _questions.length
-            ? Quiz(_answerQuestion, _questions)
-            : Center(
-                child: Text(
-                'Ukończyłeś quiz!',
-                style: TextStyle(fontSize: 32),
-              )),
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
+            : Result(_totalScore),
       ),
     );
   } //MaterialApp is a widget that does some base setup to turn your combination of widgets into a real app that can be rendered
