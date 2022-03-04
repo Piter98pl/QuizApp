@@ -91,6 +91,13 @@ class _MyFirstAppState extends State<MyFirstApp> {
   var _questionIndex = 0;
   var _totalScore = 0;
 
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   void _answerQuestion(int score) {
     _totalScore = _totalScore + score;
 
@@ -124,7 +131,7 @@ class _MyFirstAppState extends State<MyFirstApp> {
                 questionIndex: _questionIndex,
                 questions: _questions,
               )
-            : Result(_totalScore),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   } //MaterialApp is a widget that does some base setup to turn your combination of widgets into a real app that can be rendered
